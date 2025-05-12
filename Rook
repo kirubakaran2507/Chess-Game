@@ -1,0 +1,14 @@
+package piece;
+
+import chessgame.Board;
+
+public class Rook extends Piece{
+    public Rook(String name, Color color, int row, int col) {
+        super(name, color, row, col);
+    }
+
+    @Override
+    public boolean canMove(Board board, int destRow, int destCol) {
+        return (row==destRow || col==destCol);
+    }
+}
