@@ -1,0 +1,6 @@
+package chessgame;
+
+import piece.Piece;
+
+public record Move(Piece piece, int destRow, int destCol) {
+}
