@@ -1,0 +1,25 @@
+package chessgame;
+
+import piece.Color;
+import piece.Piece;
+
+public record Player(String name, Color color) {
+
+    public boolean makeMove(Move move) {
+        Board board = ChessGame.getInstance().board;
+        Piece piece = move.piece();
+        int destRow = move.destRow();
+        int destCol = move.destCol();
+
+        if (board.isValidMove(piece, destRow, destCol)) {
+            int sourceRow = piece.getRow();
+            int sourceCol = piece.getCol();
+            board.setPiece(null, sourceRow, sourceCol);
+            board.setPiece(piece, destRow, destCol);
+            piece.setRow(destRow);
+            piece.setCol(destCol);
+            return true;
+        }
+        return false;
+    }
+}
