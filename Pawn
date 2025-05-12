@@ -1,0 +1,27 @@
+package piece;
+
+import chessgame.Board;
+
+public class Pawn extends Piece {
+    public Pawn(String name, Color color, int row, int col) {
+        super(name, color, row, col);
+    }
+
+    @Override
+    public boolean canMove(Board board, int destRow, int destCol) {
+        int rowDiff = destRow-row;
+        int colDiff = Math.abs(col-destCol);
+
+        if (color == Color.WHITE){
+            return (rowDiff==1 && colDiff==0) ||
+                    (row==1 && rowDiff==2 && colDiff==0) ||
+                    (rowDiff==1 && colDiff==1 && board.getPiece(destRow,destCol)!=null);
+        }
+        else {
+            System.out.println("true");
+            return (rowDiff==-1 && colDiff==0) ||
+                    (row==6 && rowDiff==-2 && colDiff==0) ||
+                    (rowDiff==-1 && colDiff==1 && board.getPiece(destRow,destCol)!=null);
+        }
+    }
+}
