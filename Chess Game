@@ -1,0 +1,78 @@
+package chessgame;
+
+import piece.Color;
+import piece.Piece;
+
+import java.util.Scanner;
+
+public class ChessGame {
+    private static ChessGame game;
+    public Board board;
+    private final Player[] players;
+    private final Scanner scanner;
+    private ChessGame(){
+        board = new Board();
+        players = new Player[2];
+        players[0] = new Player("karan",Color.WHITE);
+        players[1] = new Player("prem", Color.BLACK);
+        scanner = new Scanner(System.in);
+    }
+
+    public static ChessGame getInstance(){
+        if (game==null){
+            game = new ChessGame();
+        }
+        return game;
+    }
+
+    public void playGame(){
+        int index = 0;
+        boolean haveWon = false;
+        displayBoard();
+
+        while (!haveWon){
+            Player currPlayer = players[index];
+            System.out.println("Player "+ currPlayer.name()+"'s turn");
+            Move move = getMove();
+
+            if (move!= null && currPlayer.makeMove(move)){
+                displayBoard();
+                if (isCheckmate()){
+                    haveWon = true;
+                }
+                index++;
+            }
+            else {
+                System.out.println("Invalid move");
+            }
+            index = index%2;
+        }
+    }
+
+    private Move getMove(){
+        System.out.println("Source row");
+        int sourceRow = scanner.nextInt();
+        System.out.println("Source col");
+        int sourceCol = scanner.nextInt();
+
+        Piece piece = board.getPiece(sourceRow,sourceCol);
+        if (piece==null || sourceRow<0 || sourceRow>7 || sourceCol<0 || sourceCol>7){
+            return null;
+        }
+
+        System.out.println("Destination row");
+        int destRow = scanner.nextInt();
+        System.out.println("Destination col");
+        int destCol = scanner.nextInt();
+
+        return new Move(piece,destRow,destCol);
+    }
+
+    public boolean isCheckmate() {
+        return false;
+    }
+
+    public void displayBoard(){
+        board.displayBoard();
+    }
+}
