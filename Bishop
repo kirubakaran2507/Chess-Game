@@ -1,0 +1,17 @@
+package piece;
+
+import chessgame.Board;
+
+public class Bishop extends Piece{
+    public Bishop(String name, Color color, int row, int col) {
+        super(name, color, row, col);
+    }
+
+    @Override
+    public boolean canMove(Board board, int destRow, int destCol) {
+        int rowDiff = Math.abs(row-destRow);
+        int colDiff = Math.abs(col-destCol);
+
+        return (rowDiff==colDiff);
+    }
+}
